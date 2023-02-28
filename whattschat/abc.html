@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
+
+  
+<style>
+  .customInput {
+  width:200px;
+  height:30px;
+  border: 3px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  background-color:transparent;
+  font-size: 20px;
+  outline:none;
+  color:white;
+  font-family: vollkorn;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 9px #999;
+}
+.button1 {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffff00;
+  background-color: #800080;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+</head>
+<body>
+
+<h2>whattschat (v1.6)</h2>
+  <h3>CREATED BY ARNAV JAIN </h3>
+
+
+
+<form >
+  <table>
+  <tr>
+  <td>
+    <table>
+      <tr>
+      <td><label for="username">username:</label></td>
+      <td><input type="text" id="username1" name="username"></td>
+      <tr>
+      <td><label for="password">password:</label></td>
+      <td><input type="text" id="password1" name="password"></td>
+      </tr>
+      <tr><td></td><td><input type="button" class="button" value="SIGN IN" onclick="fnSignUP()"></td>
+      </tr>
+    </table>
+  </td>
+
+  <td>
+   <table>
+    <tr>
+    <td><label for="username2">username:</label></td>
+    <td><input type="text" id="username2" name="username2"></td>
+    <tr>
+    <td><label for="password2">password:</label></td>
+    <td><input type="text" id="password2" name="password22"></td>
+    </tr>
+    <tr><td></td><td><input type="button" class="button" value="LOG IN" onclick="fnLogin()"></td>
+    </tr>
+  </table>
+  </td>
+</tr>
+</table>
+
+</form>
+<br><br>
+
+</body>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyBP5fSB_kiakv0r-WMo7BkP2Ik70c26tT0",
+  authDomain: "whattschat-f522c.firebaseapp.com",
+  databaseURL: "https://whattschat-f522c-default-rtdb.firebaseio.com",
+  projectId: "whattschat-f522c",
+  storageBucket: "whattschat-f522c.appspot.com",
+  messagingSenderId: "746097682908",
+  appId: "1:746097682908:web:51a0278320ad4af5774719",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+ 
+var database;
+database = firebase.database();
+
+var MyValRef = database.ref("myvalue");
+
+MyValRef.on("value", data => {
+  document.getElementById("id1").innerHTML = "My Value is " + data.val();
+  });
+
+</script>
+
+<script>
+  function getmyvalue(){
+    var MyValRef = database.ref("myvalue");
+
+    MyValRef.on("value", data => {
+      document.getElementById("id1").innerHTML = data.val();
+      });
+  }
+
+  function fnSignUP(){
+    var myuserid = document.getElementById("username1").value;
+    var mypassword = document.getElementById("password1").value;
+    
+    if (mypassword == "") {
+      alert("Password is blank");
+      return;
+    }
+
+    if (myuserid == "") {
+      alert("UserID is blank");
+      return;
+    }
+
+    myuserid = "USER:" + myuserid;
+
+    database.ref("/" + myuserid).update({
+      password : mypassword
+   });
+
+   alert(myuserid + " created successfully");
+  }
+</script>
+
+
+</html>
